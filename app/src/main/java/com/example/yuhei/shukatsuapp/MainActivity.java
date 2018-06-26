@@ -1,6 +1,5 @@
 package com.example.yuhei.shukatsuapp;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,21 +7,38 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    FragmentManager fragmentManager;
+    Fragment fragment;
+    FragmentTransaction fragmentTransaction;
 
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            android.support.v4.app.Fragment fragment = null;
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        android.support.v4.app.Fragment fragment = null;
+
+//        Intent intent = getIntent();
+
+       /* if (intent.getStringExtra("1").equals("memo")){
+
+            fragment = new MemoFragment();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,fragment);
+            fragmentTransaction.commit();
+
+        }else {*/
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragment = new HomeFragment();
                     break;
 
                 case R.id.navigation_calendar:
-                    fragment = new CalenderFragment();
+                    fragment = new CalendarFragment();
                     break;
 
                 case R.id.navigation_todo:
@@ -30,13 +46,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     break;
                 /*case R.id.navigation_schedule:
                     mTextMessage.setText(R.string.title_schedule);
-                    return true;
-                case R.id.navigation_memo:
-                    mTextMessage.setText(R.string.title_memo);
                     return true;*/
-            }
-            return loadFragment(fragment);
-        }
+                case R.id.navigation_memo:
+                    fragment = new MemoFragment();
+
+
+
+
+
+        }return loadFragment(fragment);
+    }
 
 
     @Override
@@ -51,9 +70,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
     }
-
-
-
 
 
     private boolean loadFragment(android.support.v4.app.Fragment fragment) {

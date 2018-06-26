@@ -1,38 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".TodoFragment"
+    >
 
     <TextView
-        android:id="@+id/todo"
+        android:id="@+id/todotitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ToDo Lists"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        />
+        android:text="Todo Lists"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold|italic" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="302dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/todo" />
-
-    <Button
-        android:id="@+id/addButton"
+    <TextView
+        android:id="@+id/direction1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/todo"
-        android:text="add tasks"
+        android:layout_below="@+id/todotitle"
+        android:layout_centerHorizontal="true"
+        android:text="1:You can add lists by clicking floatingactionbar"
+        android:textStyle="bold|italic" />
 
+
+    <TextView
+        android:id="@+id/direction2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/direction1"
+        android:layout_centerHorizontal="true"
+        android:text="2:You can delete/edit Lists by longclicking"
+        android:textStyle="bold|italic" />
+
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="?attr/colorPrimary"-->
+            <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_action_todo"
+        tools:layout_editor_absoluteX="328dp"
+        tools:layout_editor_absoluteY="397dp"
         />
 
     <ListView
+        android:layout_below="@+id/direction2"
         android:id="@+id/todoList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="418dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="53dp">
+
 
     </ListView>
 

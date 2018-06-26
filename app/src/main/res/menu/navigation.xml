@@ -16,10 +16,10 @@
         android:icon="@drawable/ic_action_todo"
         android:title="TodoLists" />
 
-    <item
-        android:id="@+id/navigation_schedule"
-        android:icon="@drawable/ic_action_schedule"
-        android:title="DailySchedules" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_schedule"-->
+        <!--android:icon="@drawable/ic_action_schedule"-->
+        <!--android:title="DailySchedules" />-->
 
     <item
         android:id="@+id/navigation_memo"

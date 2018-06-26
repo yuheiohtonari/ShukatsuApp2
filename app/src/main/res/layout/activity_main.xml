@@ -16,7 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large">
-        />
+
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
