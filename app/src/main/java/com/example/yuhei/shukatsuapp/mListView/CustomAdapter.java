@@ -1,6 +1,7 @@
 package com.example.yuhei.shukatsuapp.mListView;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         if (inflater == null)
         {
             inflater= (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,6 +55,8 @@ public class CustomAdapter extends BaseAdapter {
 
         final MyViewHolder holder = new MyViewHolder(convertView);
         holder.nameTxt.setText(spacecrafts.get(position).getName());
+
+        holder.nameTxt.setTextColor(Color.WHITE);
 
 
 
@@ -75,6 +79,8 @@ public class CustomAdapter extends BaseAdapter {
         });
 
 
+
+
         return convertView;
     }
 
@@ -84,4 +90,8 @@ public class CustomAdapter extends BaseAdapter {
     public String getSelectedItemName(){
         return spacecraft.getName();
     }
+
+
+
+
 }

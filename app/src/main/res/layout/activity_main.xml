@@ -17,6 +17,13 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/haikei2" />
+
+
+
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView

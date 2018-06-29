@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,6 +83,8 @@ public class TodoFragment extends Fragment {
         nameEditText = (EditText) d.findViewById(R.id.todoEditTxt);
         saveBtn = (Button) d.findViewById(R.id.addButton);
         retrieveBtn= (Button)d.findViewById(R.id.retrieveBtn);
+
+        //nameEditText.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
 
 
         if (!forUpdate) {
@@ -219,16 +222,16 @@ public class TodoFragment extends Fragment {
         return super.onContextItemSelected(item);
     }
 
-    private void setUpListViewListener(){
-        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                spacecrafts.remove(position);
-
-                return true;
-            }
-        });
-    }
+//    private void setUpListViewListener(){
+//        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                spacecrafts.remove(position);
+//
+//                return true;
+//            }
+//        });
+//    }
 }
 
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".CalendarFragment"
     android:orientation="vertical"
-    android:background="#ee0a1d">
+    >
 
 
     <TextView
@@ -32,9 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#fff"
         android:text="go to google calendar"
         android:textAllCaps="false"
+        android:background="#fff"
         android:textColor="#000"
         android:textStyle="bold|italic" />
 
