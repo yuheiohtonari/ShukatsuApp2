@@ -57,7 +57,7 @@ public class TodoFragment extends Fragment {
                 displayDialog(false);
             }
         });
-        //setUpListViewListener();
+//        setUpListViewListener();
 
 
 
@@ -201,13 +201,15 @@ public class TodoFragment extends Fragment {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                delete();
-                return false;
-            }
-        });
+//        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                delete();
+//                return false;
+//            }
+//        });
+
+
         CharSequence title = item.getTitle();
         if (title == "new") {
             displayDialog(!forUpdate);
@@ -226,7 +228,7 @@ public class TodoFragment extends Fragment {
 //        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 //            @Override
 //            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                spacecrafts.remove(position);
+//                Toast.makeText(getContext(),"hi",Toast.LENGTH_SHORT).show();
 //
 //                return true;
 //            }
