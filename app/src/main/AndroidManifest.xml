@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MemoEditActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".TodoEditActivity"></activity>
     </application>
 
 </manifest>

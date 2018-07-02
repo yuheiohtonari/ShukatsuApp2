@@ -1,240 +1,152 @@
 package com.example.yuhei.shukatsuapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.app.Dialog;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
-
-import com.example.yuhei.shukatsuapp.mDataBase.DBAdapter;
-
-import com.example.yuhei.shukatsuapp.mDataObject.Spacecraft;
-import com.example.yuhei.shukatsuapp.mListView.CustomAdapter;
+import com.example.yuhei.shukatsuapp.todoDatabase.TodoDatabaseAccess;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodoFragment extends Fragment {
 
-    ListView lv;
-    EditText nameEditText;
-    Button saveBtn, retrieveBtn;
-    ArrayList<Spacecraft> spacecrafts = new ArrayList<>();
-    CustomAdapter adapter;
-    final Boolean forUpdate = true;
-    //MenuItem menuItem;
+    private ListView lv;
+    private Button btnadd;
+    private TodoDatabaseAccess databaseAccess2;
+    private List<HelpTodo> todos;
+//    EditText nameEditText;
+//    Button saveBtn, retrieveBtn;
+//    ArrayList<Spacecraft> spacecrafts = new ArrayList<>();
+//    CustomAdapter adapter;
+//    final Boolean forUpdate = true;
+//    //MenuItem menuItem;
 
 
-    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.todo, container, false);
 
-        //Toolbar toolbar = view.findViewById(R.id.toolbar) ;
+        this.databaseAccess2 = TodoDatabaseAccess.getInstance(getActivity());
 
-        lv = view.findViewById(R.id.todoList);
-        adapter = new CustomAdapter(getContext(), spacecrafts);
+        this.lv = view.findViewById(R.id.todoListView);
+        this.btnadd = view.findViewById(R.id.btnAdd);
 
-        this.getSpacecrafts();
-        lv.setAdapter(adapter);
-
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        this.btnadd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                displayDialog(false);
+            public void onClick(View v) {
+                onAddClicked();
             }
         });
-//        setUpListViewListener();
 
-
-
-//        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                delete();
-//                return false;
-//            }
-//        });
-//
-//
-//
+        this.lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HelpTodo todo = todos.get(position);
+                TextView txtTodo = (TextView) view.findViewById(R.id.txtTodo);
+                if (todo.isFullDisplayed()) {
+                    txtTodo.setText(todo.getShortText());
+                    todo.setFullDisplayed(false);
+                } else {
+                    txtTodo.setText(todo.getText());
+                    todo.setFullDisplayed(true);
+                }
+            }
+        });
         return view;
 
     }
 
-    private void displayDialog(Boolean forUpdate) {
-        Dialog d = new Dialog(getContext());
-        d.setTitle("SQLITE DATA");
-        d.setContentView(R.layout.tododialog);
-
-        nameEditText = (EditText) d.findViewById(R.id.todoEditTxt);
-        saveBtn = (Button) d.findViewById(R.id.addButton);
-        retrieveBtn= (Button)d.findViewById(R.id.retrieveBtn);
-
-        //nameEditText.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
-
-
-        if (!forUpdate) {
-            saveBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    save(nameEditText.getText().toString());
-                }
-            });
-            retrieveBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getSpacecrafts();
-                }
-            });
-
-        } else {
-
-            //SET SELECTED TEXT
-            nameEditText.setText(adapter.getSelectedItemName());
-
-            saveBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    update(nameEditText.getText().toString());
-                }
-            });
-            retrieveBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getSpacecrafts();
-                }
-            });
-        }
-
-        d.show();
-
-    }
-
-    //SAVE
-    private void save(String name) {
-        DBAdapter db = new DBAdapter(getContext());
-        db.openDB();
-        boolean saved = db.add(name);
-
-        if (saved) {
-            nameEditText.setText("");
-            getSpacecrafts();
-        } else {
-            Toast.makeText(getContext(), "Unable To Save", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    //RETRIEVE OR GETSPACECRAFTS
-    private void getSpacecrafts() {
-        spacecrafts.clear();
-        DBAdapter db = new DBAdapter(getContext());
-        db.openDB();
-        Cursor c = db.retrieve();
-        Spacecraft spacecraft = null;
-
-        while (c.moveToNext()) {
-            int id = c.getInt(0);
-            String name = c.getString(1);
-
-            spacecraft = new Spacecraft();
-            spacecraft.setId(id);
-            spacecraft.setName(name);
-
-            spacecrafts.add(spacecraft);
-        }
-
-        db.closeDB();
-        lv.setAdapter(adapter);
-    }
-
-    //UPDATE OR EDIT
-    private void update(String newName) {
-        //GET ID OF SPACECRAFT
-        int id = adapter.getSelectedItemID();
-
-        //UPDATE IN DB
-        DBAdapter db = new DBAdapter(getContext());
-        db.openDB();
-        boolean updated = db.update(newName, id);
-        db.closeDB();
-
-        if (updated) {
-            nameEditText.setText(newName);
-            getSpacecrafts();
-        } else {
-            Toast.makeText(getContext(), "Unable To Update", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private void delete() {
-        //GET ID
-        int id = adapter.getSelectedItemID();
-
-        //DELETE FROM DB
-        DBAdapter db = new DBAdapter(getContext());
-        db.openDB();
-        boolean deleted = db.delete(id);
-        db.closeDB();
-
-        if (deleted) {
-            getSpacecrafts();
-        } else {
-            Toast.makeText(getContext(), "Unable To Delete", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
-
-//        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                delete();
-//                return false;
-//            }
-//        });
-
-
-        CharSequence title = item.getTitle();
-        if (title == "new") {
-            displayDialog(!forUpdate);
-
-        } else if (title == "edit") {
-            displayDialog(forUpdate);
-
-        } else if (title == "delete") {
-            delete();
-        }
-
-        return super.onContextItemSelected(item);
+    public void onResume() {
+        super.onResume();
+        databaseAccess2.open();
+        this.todos = databaseAccess2.getAllTodos();
+        databaseAccess2.close();
+        TodoAdapter adapter = new TodoAdapter(getActivity(),todos);
+        this.lv.setAdapter(adapter);
     }
 
-//    private void setUpListViewListener(){
-//        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getContext(),"hi",Toast.LENGTH_SHORT).show();
-//
-//                return true;
-//            }
-//        });
-//    }
+    public void onAddClicked(){
+        Intent intent = new Intent(getActivity(),TodoEditActivity.class);
+        startActivity(intent);
+    }
+    public void onDeleteClicked(HelpTodo todo) {
+        databaseAccess2.open();
+        databaseAccess2.delete(todo);
+        databaseAccess2.close();
+
+        ArrayAdapter<HelpTodo> adapter = (ArrayAdapter<HelpTodo>) lv.getAdapter();
+        adapter.remove(todo);
+        adapter.notifyDataSetChanged();
+    }
+    public void onEditClicked(HelpTodo todo){
+        Intent intent = new Intent(getActivity(),TodoEditActivity.class);
+        intent.putExtra("TODO",todo);
+        startActivity(intent);
+    }
+
+    private class TodoAdapter extends ArrayAdapter<HelpTodo>{
+
+        public TodoAdapter(Context context, List<HelpTodo> objects) {
+            super(context,0,objects);
+        }
+
+
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            if (convertView == null) {
+                convertView =getLayoutInflater().inflate(R.layout.layout_todolist_item,parent,false);
+
+            }
+            ImageView btnEdit = convertView.findViewById(R.id.btnEdit);
+            ImageView btnDelete =  convertView.findViewById(R.id.btnDelete);
+            TextView txtDate = convertView.findViewById(R.id.txtDate);
+            TextView txtTodo = convertView.findViewById(R.id.txtTodo);
+
+            final HelpTodo todo = todos.get(position);
+            todo.setFullDisplayed(false);
+            txtDate.setText(todo.getDate());
+            txtTodo.setText(todo.getShortText());
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onEditClicked(todo);
+                }
+            });
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onDeleteClicked(todo);
+                }
+            });
+
+            return convertView;
+        }
+    }
 }
+
+
 
 
 
