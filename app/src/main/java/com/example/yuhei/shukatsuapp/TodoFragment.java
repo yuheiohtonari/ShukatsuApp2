@@ -1,17 +1,15 @@
 package com.example.yuhei.shukatsuapp;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 
-import android.text.InputType;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,13 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.app.Dialog;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
+
+import com.example.yuhei.shukatsuapp.todoDatabase.HelpTodo;
 import com.example.yuhei.shukatsuapp.todoDatabase.TodoDatabaseAccess;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TodoFragment extends Fragment {
@@ -35,6 +31,11 @@ public class TodoFragment extends Fragment {
     private Button btnadd;
     private TodoDatabaseAccess databaseAccess2;
     private List<HelpTodo> todos;
+
+
+
+
+
 //    EditText nameEditText;
 //    Button saveBtn, retrieveBtn;
 //    ArrayList<Spacecraft> spacecrafts = new ArrayList<>();
@@ -43,22 +44,20 @@ public class TodoFragment extends Fragment {
 //    //MenuItem menuItem;
 
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.todo, container, false);
 
         this.databaseAccess2 = TodoDatabaseAccess.getInstance(getActivity());
-
         this.lv = view.findViewById(R.id.todoListView);
         this.btnadd = view.findViewById(R.id.btnAdd);
-
         this.btnadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onAddClicked();
             }
         });
-
         this.lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,6 +72,10 @@ public class TodoFragment extends Fragment {
                 }
             }
         });
+
+
+
+
         return view;
 
     }
@@ -116,11 +119,12 @@ public class TodoFragment extends Fragment {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             if (convertView == null) {
-                convertView =getLayoutInflater().inflate(R.layout.layout_todolist_item,parent,false);
+                convertView =getLayoutInflater().inflate(R.layout.activity_detail,parent,false);
 
             }
             ImageView btnEdit = convertView.findViewById(R.id.btnEdit);
             ImageView btnDelete =  convertView.findViewById(R.id.btnDelete);
+            //Button detailButton = convertView.findViewById(R.id.detailButton);
             TextView txtDate = convertView.findViewById(R.id.txtDate);
             TextView txtTodo = convertView.findViewById(R.id.txtTodo);
 
@@ -128,6 +132,16 @@ public class TodoFragment extends Fragment {
             todo.setFullDisplayed(false);
             txtDate.setText(todo.getDate());
             txtTodo.setText(todo.getShortText());
+
+
+//            detailButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    DetailAlert detailAlert = new DetailAlert();
+//                    detailAlert.show(getFragmentManager(),"Detail Alert");
+//
+//                }
+//            });
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

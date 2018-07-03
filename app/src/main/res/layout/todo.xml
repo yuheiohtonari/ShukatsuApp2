@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="#fff"
-            android:text="create new memo"
+            android:text="create new todo"
             android:textAllCaps="false"
             android:textColor="#000"
             android:textStyle="bold|italic" />
@@ -53,7 +53,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_vertical"
-        android:text="Memo"
+        android:text="Todo"
         android:textColor="#fff"
         android:textSize="30dp"
         android:textStyle="bold|italic" />

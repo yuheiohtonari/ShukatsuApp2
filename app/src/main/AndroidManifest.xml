@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".MemoEditActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".TodoEditActivity"></activity>
+        <activity android:name=".TodoEditActivity" />
+        <activity android:name=".DetailActivity"></activity>
     </application>
 
 </manifest>

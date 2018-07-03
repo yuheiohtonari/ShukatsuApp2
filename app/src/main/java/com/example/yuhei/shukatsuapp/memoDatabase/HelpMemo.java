@@ -1,4 +1,4 @@
-package com.example.yuhei.shukatsuapp;
+package com.example.yuhei.shukatsuapp.memoDatabase;
 
 import java.io.Serializable;
 import java.text.DateFormat;

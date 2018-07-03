@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.yuhei.shukatsuapp.HelpMemo;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -1,10 +1,7 @@
 package com.example.yuhei.shukatsuapp;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,14 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.TwoLineListItem;
 
+import com.example.yuhei.shukatsuapp.memoDatabase.HelpMemo;
 import com.example.yuhei.shukatsuapp.memoDatabase.MemoDatabaseAccess;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MemoFragment extends Fragment {

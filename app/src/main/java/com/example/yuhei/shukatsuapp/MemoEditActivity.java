@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.yuhei.shukatsuapp.memoDatabase.HelpMemo;
 import com.example.yuhei.shukatsuapp.memoDatabase.MemoDatabaseAccess;
-import com.example.yuhei.shukatsuapp.memoDatabase.MemoDatabaseOpenHelper;
 
 public class MemoEditActivity extends AppCompatActivity {
 

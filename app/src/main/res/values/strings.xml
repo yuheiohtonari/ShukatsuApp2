@@ -5,4 +5,7 @@
     <string name="title_todo">Todo</string>
     <string name="title_schedule">Schedule</string>
     <string name="title_memo">Memo</string>
+
+    <string name="cancel">cancel</string>
+    <string name="save">save</string>
 </resources>
